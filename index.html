@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NET ADDICTION | Погружение в цифровую зависимость</title>
+    <style>
+        :root {
+            --main-color: #ff4d4d;
+            --dark-bg: #0f0f0f;
+            --text-color: #e0e0e0;
+            --accent: #00ccff;
+            --secondary-accent: #ff00ff;
+        }
+        
+        @font-face {
+            font-family: 'Digital';
+            src: url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        }
+        
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .glitch-wrapper {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            position: relative;
+        }
+        
+        .glitch {
+            position: relative;
+            font-size: 6vw;
+            font-weight: bold;
+            color: var(--main-color);
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--main-color);
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--accent);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--secondary-accent);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(31px, 9999px, 94px, 0) }
+            25% { clip: rect(112px, 9999px, 76px, 0) }
+            50% { clip: rect(85px, 9999px, 77px, 0) }
+            75% { clip: rect(27px, 9999px, 97px, 0) }
+            100% { clip: rect(64px, 9999px, 98px, 0) }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 119px, 0) }
+            25% { clip: rect(76px, 9999px, 145px, 0) }
+            50% { clip: rect(45px, 9999px, 133px, 0) }
+            75% { clip: rect(12px, 9999px, 87px, 0) }
+            100% { clip: rect(98px, 9999px, 56px, 0) }
+        }
+        
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+        
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem;
+            margin: 0;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 5px var(--accent);
+        }
+        
+        section {
+            padding: 5rem 10%;
+            min-height: 100vh;
+            border-bottom: 1px solid #333;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary-accent));
+            margin: 1rem auto 0;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s;
+            border: 1px solid #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        
+        .card h3 {
+            color: var(--main-color);
+            font-size: 1.5rem;
+            margin-top: 0;
+            border-bottom: 1px solid #444;
+            padding-bottom: 0.5rem;
+        }
+        
+        .card ul {
+            padding-left: 1.5rem;
+        }
+        
+        .card li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .card li::before {
+            content: '■';
+            color: var(--accent);
+            position: absolute;
+            left: -1.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .test-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 20px rgba(0, 204, 255, 0.1);
+        }
+        
+        .test-title {
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .test-description {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #aaa;
+            font-style: italic;
+        }
+        
+        .test-question {
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 5px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .test-question-number {
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 204, 255, 0.3);
+        }
+        
+        .option input {
+            margin-right: 1rem;
+            accent-color: var(--accent);
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, var(--main-color), #ff3366);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 1rem;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(90deg, #ff3366, var(--main-color));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 77, 77, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .result-container {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .result-score {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .result-meter {
+            height: 30px;
+            background: #333;
+            border-radius: 15px;
+            margin: 2rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--main-color));
+            width: 0%;
+            transition: width 1s ease-out;
+        }
+        
+        .meter-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        
+        .result-details {
+            margin-top: 2rem;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            border-radius: 5px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .result-details h4 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        
+        .typing-effect {
+            border-right: 2px solid var(--accent);
+            animation: blink 0.75s step-end infinite;
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent) }
+        }
+        
+        .info-box {
+            background: rgba(0, 204, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .info-box-title {
+            color: var(--accent);
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+        
+        .warning-box {
+            background: rgba(255, 77, 77, 0.1);
+            border-left: 4px solid var(--main-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .warning-box-title {
+            color: var(--main-color);
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 5px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 0.5rem 0;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: #000;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-warning {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; text-shadow: 0 0 5px var(--main-color); }
+            50% { opacity: 1; text-shadow: 0 0 15px var(--main-color); }
+            100% { opacity: 0.6; text-shadow: 0 0 5px var(--main-color); }
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-color);
+            font-size: 1rem;
+            text-decoration: none;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+        
+        .scroll-down::after {
+            content: '▼';
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 10vw;
+                letter-spacing: 0.2em;
+            }
+            
+            nav ul {
+                gap: 1.5rem;
+            }
+            
+            section {
+                padding: 3rem 5%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .test-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-rain" id="matrixRain"></div>
+    
+    <div class="glitch-wrapper">
+        <div class="glitch" data-text="NET ADDICTION">NET ADDICTION</div>
+        <a href="#about" class="scroll-down">Узнать больше</a>
+    </div>
+    
+    <nav>
+        <ul>
+            <li><a href="#about">Феномен</a></li>
+            <li><a href="#types">Типы</a></li>
+            <li><a href="#causes">Причины</a></li>
+            <li><a href="#symptoms">Признаки</a></li>
+            <li><a href="#consequences">Последствия</a></li>
+            <li><a href="#solutions">Решение</a></li>
+            <li><a href="#tests">Тесты</a></li>
+        </ul>
+    </nav>
+    
+    <section id="about">
+        <h2 class="section-title">Феномен цифровой зависимости</h2>
+        
+        <div class="info-box">
+            <h3 class="info-box-title">Что такое интернет-зависимость?</h3>
+            <p>Интернет-зависимость (или цифровая зависимость) — это навязчивое стремление к использованию цифровых устройств и онлайн-активности, которое приводит к значительным нарушениям в повседневной жизни, социальных взаимодействиях, психическом и физическом здоровье.</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">12-40%</div>
+                <div class="stat-label">пользователей демонстрируют признаки зависимости</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">60%</div>
+                <div class="stat-label">подростков в группе риска</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3-8%</div>
+                <div class="stat-label">населения имеют клиническую форму зависимости</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">6.5 ч</div>
+                <div class="stat-label">среднее время в сети у зависимых</div>
+            </div>
+        </div>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h3>Нейрофизиология зависимости</h3>
+                <p>При интернет-зависимости наблюдается гиперактивация системы вознаграждения мозга с выбросом дофамина, аналогичная наркотической зависимости. Исследования fMRI показывают изменения в префронтальной коре, отвечающей за самоконтроль.</p>
+            </div>
+            <div class="card">
+                <h3>Исторический контекст</h3>
+                <p>Термин "интернет-зависимость" впервые использовал американский психиатр Айвен Голдберг в 1995 году. В 2018 году ВОЗ включила "игровое расстройство" в Международную классификацию болезней (МКБ-11).</p>
+            </div>
+            <div class="card">
+                <h3>Диагностические критерии</h3>
+                <ul>
+                    <li>Навязчивые мысли об интернете</li>
+                    <li>Необходимость увеличивать время онлайн</li>
+                    <li>Безуспешные попытки сократить использование</li>
+                    <li>Ухудшение настроения при отсутствии доступа</li>
+                    <li>Ложь о времени, проведенном в сети</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="types" style="background: rgba(0,0,0,0.3);">
+        <h2 class="section-title">Типы цифровой зависимости</h2>
+        
+        <div class="warning-box">
+            <h3 class="warning-box-title">Важно!</h3>
+            <p>Один человек может одновременно страдать от нескольких видов цифровой зависимости, что усложняет диагностику и лечение.</p>
+        </div>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h3>Социальные сети</h3>
+                <p>Навязчивая проверка лент, постоянное обновление статусов, зависимость от лайков и комментариев. Характерна "фантомная вибрация" — ложное ощущение уведомлений.</p>
+                <ul>
+                    <li>Среднее время в соцсетях: 2.5 часа/день</li>
+                    <li>78% пользователей проверяют соцсети утром</li>
+                    <li>58% испытывают тревогу без доступа</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Игровая зависимость</h3>
+                <p>Компульсивная игра в видеоигры, особенно MMORPG и соревновательные игры. Характерны "игровые сессии" по 10-12 часов без перерыва.</p>
+                <ul>
+                    <li>3-4% геймеров имеют зависимость</li>
+                    <li>Синдром отмены как у наркотиков</li>
+                    <li>Разрушение циркадных ритмов</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Информационный перегруз</h3>
+                <p>Компульсивный поиск информации, бесконечный скроллинг новостей, навязчивое чтение статей. Часто сопровождается синдромом упущенной выгоды (FOMO).</p>
+                <ul>
+                    <li>Средний пользователь потребляет 34 ГБ информации/день</li>
+                    <li>Постоянное переключение между вкладками</li>
+                    <li>Невозможность сконцентрироваться</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Киберсексуальная</h3>
+                <p>Навязчивый просмотр порнографии, виртуальные сексуальные отношения. Часто приводит к сексуальной дисфункции в реальной жизни.</p>
+                <ul>
+                    <li>35% всего интернет-трафика — порнография</li>
+                    <li>Средний возраст первого просмотра: 11 лет</li>
+                    <li>Вызывает изменения в лимбической системе</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Онлайн-шопинг</h3>
+                <p>Компульсивные покупки в интернете, участие в аукционах. Часто сочетается с игровой механикой (распродажи, ограниченные предложения).</p>
+                <ul>
+                    <li>6-16% населения имеют признаки</li>
+                    <li>Дофаминовый отклик на покупку</li>
+                    <li>Финансовые проблемы</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Киберзависимость</h3>
+                <p>Навязчивое программирование, взлом, участие в киберсообществах. Часто сопровождается социальной изоляцией и нарушением сна.</p>
+                <ul>
+                    <li>Высокий риск у IT-специалистов</li>
+                    <li>Замена реального общения</li>
+                    <li>Размытие грани между работой и досугом</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="causes">
+        <h2 class="section-title">Причины формирования</h2>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h3>1. Дофаминовые механизмы</h3>
+                <p>Цифровые продукты используют принцип переменного подкрепления (как в игровых автоматах), когда награда приходит в случайные моменты, что вызывает сильнейшее привыкание.</p>
+                <ul>
+                    <li>Лайки и репосты как социальное подкрепление</li>
+                    <li>Уведомления как мини-награды</li>
+                    <li>Бесконечный скроллинг с непредсказуемым контентом</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>2. Психологические факторы</h3>
+                <p>Интернет становится способом справиться со стрессом, одиночеством, низкой самооценкой или другими психологическими проблемами.</p>
+                <ul>
+                    <li>Эскапизм от реальных проблем</li>
+                    <li>Создание идеального цифрового "я"</li>
+                    <li>Социальная тревожность и трудности в общении</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>3. Технологический дизайн</h3>
+                <p>Приложения и сайты специально разрабатываются для максимального вовлечения, используя последние достижения нейронаук.</p>
+                <ul>
+                    <li>Персонализированные рекомендации</li>
+                    <li>Автоплей видео и бесконечные ленты</li>
+                    <li>Социальное давление (статусы онлайн, прочитанные сообщения)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3 class="info-box-title">Как технологии манипулируют нашим вниманием?</h3>
+            <p>Современные цифровые продукты используют целый арсенал техник для удержания пользователей:</p>
+            <ul>
+                <li><strong>Переменное вознаграждение:</strong> Проверка соцсетей становится аналогом игры в игровой автомат — никогда не знаешь, когда получишь "выигрыш" в виде лайка или интересного поста.</li>
+                <li><strong>Страх пропустить (FOMO):</strong> Дизайн приложений создает ощущение, что если ты не онлайн, ты что-то важное пропускаешь.</li>
+                <li><strong>Социальное одобрение:</strong> Лайки и комментарии активируют те же зоны мозга, что и социальное признание в реальной жизни.</li>
+                <li><strong>Бесконечность контента:</strong> Отсутствие четких границ (как последняя страница книги) заставляет потреблять контент без остановки.</li>
+            </ul>
+        </div>
+    </section>
+    
+    <section id="symptoms" style="background: rgba(0,0,0,0.3);">
+        <h2 class="section-title">Клинические признаки</h2>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h3>Когнитивные симптомы</h3>
+                <ul>
+                    <li>Навязчивые мысли о сети, когда офлайн</li>
+                    <li>Снижение концентрации внимания</li>
+                    <li>Ухудшение кратковременной памяти</li>
+                    <li>Трудности с принятием решений</li>
+                    <li>Иллюзия многозадачности</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Эмоциональные проявления</h3>
+                <ul>
+                    <li>Раздражительность при ограничении доступа</li>
+                    <li>Эйфория от времени в сети</li>
+                    <li>Чувство вины после долгого использования</li>
+                    <li>Эмоциональное оцепенение в реальной жизни</li>
+                    <li>Депрессивные состояния</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Физические последствия</h3>
+                <ul>
+                    <li>Нарушения сна (синий свет подавляет мелатонин)</li>
+                    <li>Синдром сухого глаза</li>
+                    <li>Хронические боли в спине и шее</li>
+                    <li>Головные боли напряжения</li>
+                    <li>Нарушения пищевого поведения</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Социальные изменения</h3>
+                <ul>
+                    <li>Изоляция от реальных контактов</li>
+                    <li>Конфликты с близкими из-за использования</li>
+                    <li>Подмена реальных отношений виртуальными</li>
+                    <li>Потеря социальных навыков</li>
+                    <li>Цифровая коммуникация вместо личного общения</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="warning-box">
+            <h3 class="warning-box-title">Стадии формирования зависимости</h3>
+            <ol>
+                <li><strong>Знакомство:</strong> Эпизодическое использование для удовольствия или работы.</li>
+                <li><strong>Усиление:</strong> Поиск эмоциональной разрядки, увеличение времени.</li>
+                <li><strong>Закрепление:</strong> Потеря контроля, использование для избегания реальности.</li>
+                <li><strong>Кризис:</strong> Серьезные проблемы в различных сферах жизни.</li>
+            </ol>
+        </div>
+    </section>
+    
+    <section id="consequences">
+        <h2 class="section-title">Последствия зависимости</h2>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h3>Профессиональные</h3>
+                <ul>
+                    <li>Снижение продуктивности</li>
+                    <li>Прокрастинация и дедлайны</li>
+                    <li>Конфликты с коллегами</li>
+                    <li>Потеря работы</li>
+                    <li>Финансовые проблемы</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Семейные</h3>
+                <ul>
+                    <li>Конфликты с партнером</li>
+                    <li>Эмоциональная отстраненность</li>
+                    <li>Разводы (феномен "цифрового адюльтера")</li>
+                    <li>Заброшенные дети ("цифровые сироты")</li>
+                    <li>Потеря близких отношений</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Психическое здоровье</h3>
+                <ul>
+                    <li>Тревожные расстройства</li>
+                    <li>Депрессия</li>
+                    <li>Синдром дефицита внимания</li>
+                    <li>Дереализация</li>
+                    <li>Суицидальные мысли</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Физическое здоровье</h3>
+                <ul>
+                    <li>Ожирение или недоедание</li>
+                    <li>Сердечно-сосудистые заболевания</li>
+                    <li>Синдром запястного канала</li>
+                    <li>Нарушения зрения</li>
+                    <li>Снижение иммунитета</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3 class="info-box-title">Неврологические изменения</h3>
+            <p>Исследования МРТ показывают, что у интернет-зависимых людей наблюдаются структурные изменения в мозге, аналогичные тем, что происходят при химических зависимостях:</p>
+            <ul>
+                <li><strong>Уменьшение серого вещества</strong> в префронтальной коре (отвечает за самоконтроль и принятие решений)</li>
+                <li><strong>Гиперактивность вентрального стриатума</strong> (центр удовольствия и вознаграждения)</li>
+                <li><strong>Нарушение связей</strong> между различными зонами мозга</li>
+                <li><strong>Снижение плотности белого вещества</strong>, что влияет на когнитивные функции</li>
+            </ul>
+            <p>Хорошая новость: эти изменения обратимы при правильном лечении и цифровой детоксикации.</p>
+        </div>
+    </section>
+    
+    <section id="solutions" style="background: rgba(0,0,0,0.3);">
+        <h2 class="section-title">Решение проблемы</h2>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h3>Персональные стратегии</h3>
+                <ul>
+                    <li>Цифровая гигиена (режим, ограничения)</li>
+                    <li>Осознанное использование (без автоматизма)</li>
+                    <li>Технические ограничения (таймеры, блокировщики)</li>
+                    <li>Замена цифровых привычек аналоговыми</li>
+                    <li>Развитие офлайн-хобби</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Психологическая помощь</h3>
+                <ul>
+                    <li>Когнитивно-поведенческая терапия</li>
+                    <li>Группы поддержки</li>
+                    <li>Семейная терапия</li>
+                    <li>Тренинг социальных навыков</li>
+                    <li>Медитация и mindfulness</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Медицинское лечение</h3>
+                <ul>
+                    <li>Лечение сопутствующих расстройств</li>
+                    <li>Фармакотерапия (антидепрессанты, нормотимики)</li>
+                    <li>Физиотерапия</li>
+                    <li>Стационарные программы</li>
+                    <li>Реабилитационные центры</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="warning-box">
+            <h3 class="warning-box-title">12 шагов цифровой детоксикации</h3>
+            <ol>
+                <li>Признать проблему и ее последствия</li>
+                <li>Начать вести дневник использования</li>
+                <li>Установить четкие границы (время, зоны)</li>
+                <li>Удалить самые проблемные приложения</li>
+                <li>Использовать технические ограничения</li>
+                <li>Создать офлайн-ритуалы утра и вечера</li>
+                <li>Восстановить физическую активность</li>
+                <li>Развивать живое общение</li>
+                <li>Практиковать цифровые посты</li>
+                <li>Найти новые источники дофамина</li>
+                <li>Работать с психологическими причинами</li>
+                <li>Помогать другим с аналогичной проблемой</li>
+            </ol>
+        </div>
+        
+        <div class="info-box">
+            <h3 class="info-box-title">Полезные приложения для контроля</h3>
+            <div class="grid-container" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="card">
+                    <h4>Freedom</h4>
+                    <p>Блокировщик сайтов и приложений на всех устройствах</p>
+                </div>
+                <div class="card">
+                    <h4>Offtime</h4>
+                    <p>Анализ использования и целенаправленные ограничения</p>
+                </div>
+                <div class="card">
+                    <h4>Forest</h4>
+                    <p>Мотивация не трогать телефон (выращиваешь виртуальное дерево)</p>
+                </div>
+                <div class="card">
+                    <h4>Moment</h4>
+                    <p>Трекер экранного времени с семейными функциями</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="tests">
+        <h2 class="section-title">Диагностические тесты</h2>
+        
+        <div class="test-container" id="test1">
+            <h3 class="test-title">Тест на общую интернет-зависимость</h3>
+            <p class="test-description">Оцените степень вашей зависимости от интернета в целом. Ответьте на 10 вопросов, выбрав наиболее подходящий вариант.</p>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 1 из 10</div>
+                <p>Как часто вы обнаруживаете, что провели в сети больше времени, чем планировали?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q1" value="4"> Постоянно (почти каждый день)</label>
+                    <label class="option"><input type="radio" name="q1" value="3"> Часто (несколько раз в неделю)</label>
+                    <label class="option"><input type="radio" name="q1" value="2"> Иногда (несколько раз в месяц)</label>
+                    <label class="option"><input type="radio" name="q1" value="1"> Редко (почти никогда)</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 2 из 10</div>
+                <p>Как часто вы пренебрегаете домашними делами, чтобы больше времени провести в сети?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q2" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q2" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q2" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q2" value="1"> Редко</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 3 из 10</div>
+                <p>Как часто вы предпочитаете общение в интернете реальному общению?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q3" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q3" value="3"> Чаще всего</label>
+                    <label class="option"><input type="radio" name="q3" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q3" value="1"> Почти никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 4 из 10</div>
+                <p>Как часто вы проверяете свои устройства прежде, чем сделать что-то другое утром?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q4" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q4" value="3"> Чаще всего</label>
+                    <label class="option"><input type="radio" name="q4" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q4" value="1"> Почти никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 5 из 10</div>
+                <p>Как часто вы чувствуете беспокойство, раздражение или подавленность, когда не можете выйти в интернет?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q5" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q5" value="3"> Чаще всего</label>
+                    <label class="option"><input type="radio" name="q5" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q5" value="1"> Почти никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 6 из 10</div>
+                <p>Как часто вы скрываете или лжете о времени, проведенном в сети?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q6" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q6" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q6" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q6" value="1"> Редко</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 7 из 10</div>
+                <p>Как часто интернет служит вам способом уйти от проблем или плохого настроения?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q7" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q7" value="3"> Чаще всего</label>
+                    <label class="option"><input type="radio" name="q7" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q7" value="1"> Почти никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 8 из 10</div>
+                <p>Как часто у вас возникают проблемы в учебе/работе из-за времени, проведенного в сети?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q8" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q8" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q8" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q8" value="1"> Редко</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 9 из 10</div>
+                <p>Как часто вы продолжаете быть онлайн, даже когда не нужно, просто по привычке?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q9" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q9" value="3"> Чаще всего</label>
+                    <label class="option"><input type="radio" name="q9" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q9" value="1"> Почти никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 10 из 10</div>
+                <p>Как часто вы пытались сократить время в интернете, но безуспешно?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q10" value="4"> Много раз</label>
+                    <label class="option"><input type="radio" name="q10" value="3"> Несколько раз</label>
+                    <label class="option"><input type="radio" name="q10" value="2"> Один-два раза</label>
+                    <label class="option"><input type="radio" name="q10" value="1"> Никогда не пытался</label>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="calculateTest(1)">Получить результат</button>
+            
+            <div class="result-container" id="result1">
+                <h3 class="result-title">Ваш результат: <span id="resultText1"></span></h3>
+                <div class="result-score">Оценка: <span id="resultScore1"></span>/40</div>
+                
+                <div class="result-meter">
+                    <div class="meter-fill" id="meter1"></div>
+                </div>
+                <div class="meter-labels">
+                    <span>Низкий риск</span>
+                    <span>Умеренный риск</span>
+                    <span>Высокий риск</span>
+                </div>
+                
+                <div class="result-details">
+                    <h4>Интерпретация результатов:</h4>
+                    <p id="resultDesc1"></p>
+                    <p id="resultAdvice1"></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-container" id="test2" style="margin-top: 3rem;">
+            <h3 class="test-title">Тест на зависимость от социальных сетей</h3>
+            <p class="test-description">Оцените степень вашей зависимости от социальных сетей (Facebook, Instagram, TikTok, VK и др.).</p>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 1 из 10</div>
+                <p>Как часто вы первым делом проверяете соцсети после пробуждения?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q1" value="4"> Каждое утро</label>
+                    <label class="option"><input type="radio" name="q1" value="3"> Большинство утр</label>
+                    <label class="option"><input type="radio" name="q1" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q1" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 2 из 10</div>
+                <p>Как часто вы проверяете соцсети в течение дня без конкретной цели?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q2" value="4"> Постоянно (десятки раз)</label>
+                    <label class="option"><input type="radio" name="q2" value="3"> Часто (5-10 раз)</label>
+                    <label class="option"><input type="radio" name="q2" value="2"> Иногда (2-4 раза)</label>
+                    <label class="option"><input type="radio" name="q2" value="1"> Редко (1 раз или меньше)</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 3 из 10</div>
+                <p>Как часто вы чувствуете тревогу или беспокойство, когда не можете проверить соцсети?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q3" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q3" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q3" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q3" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 4 из 10</div>
+                <p>Как часто вы откладываете важные дела, чтобы провести время в соцсетях?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q4" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q4" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q4" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q4" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 5 из 10</div>
+                <p>Как часто вы чувствуете разочарование, когда ваши посты не получают ожидаемого внимания?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q5" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q5" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q5" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q5" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 6 из 10</div>
+                <p>Как часто вы проводите время в соцсетях, когда находитесь в компании других людей?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q6" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q6" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q6" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q6" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 7 из 10</div>
+                <p>Как часто вы чувствуете, что жизнь других людей в соцсетях интереснее вашей?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q7" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q7" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q7" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q7" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 8 из 10</div>
+                <p>Как часто вы редактируете или удаляете свои посты из-за недостаточного количества лайков?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q8" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q8" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q8" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q8" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 9 из 10</div>
+                <p>Как часто вы ловите себя на бесцельном скроллинге ленты дольше 30 минут?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q9" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q9" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q9" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q9" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 10 из 10</div>
+                <p>Как часто вы пытались сократить время в соцсетях, но безуспешно?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q10" value="4"> Много раз</label>
+                    <label class="option"><input type="radio" name="q10" value="3"> Несколько раз</label>
+                    <label class="option"><input type="radio" name="q10" value="2"> Один-два раза</label>
+                    <label class="option"><input type="radio" name="q10" value="1"> Никогда не пытался</label>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="calculateTest(2)">Получить результат</button>
+            
+            <div class="result-container" id="result2">
+                <h3 class="result-title">Ваш результат: <span id="resultText2"></span></h3>
+                <div class="result-score">Оценка: <span id="resultScore2"></span>/40</div>
+                
+                <div class="result-meter">
+                    <div class="meter-fill" id="meter2"></div>
+                </div>
+                <div class="meter-labels">
+                    <span>Низкий риск</span>
+                    <span>Умеренный риск</span>
+                    <span>Высокий риск</span>
+                </div>
+                
+                <div class="result-details">
+                    <h4>Интерпретация результатов:</h4>
+                    <p id="resultDesc2"></p>
+                    <p id="resultAdvice2"></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-container" id="test3" style="margin-top: 3rem;">
+            <h3 class="test-title">Тест на игровую зависимость</h3>
+            <p class="test-description">Оцените степень вашей зависимости от компьютерных и видеоигр (MMORPG, мобильные игры, шутеры и др.).</p>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 1 из 10</div>
+                <p>Как часто вы думаете об игре, даже когда не играете?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q1" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q1" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q1" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q1" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 2 из 10</div>
+                <p>Как часто вы увеличиваете время игры, несмотря на первоначальные планы?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q2" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q2" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q2" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q2" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 3 из 10</div>
+                <p>Как часто вы чувствуете раздражение или беспокойство, когда не можете играть?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q3" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q3" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q3" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q3" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 4 из 10</div>
+                <p>Как часто вы жертвуете сном, чтобы продолжить играть?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q4" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q4" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q4" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q4" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 5 из 10</div>
+                <p>Как часто вы пропускаете приемы пищи из-за игры?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q5" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q5" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q5" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q5" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 6 из 10</div>
+                <p>Как часто вы пренебрегаете личной гигиеной из-за игры?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q6" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q6" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q6" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q6" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 7 из 10</div>
+                <p>Как часто вы тратите деньги на внутриигровые покупки сверх запланированного?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q7" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q7" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q7" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q7" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 8 из 10</div>
+                <p>Как часто у вас возникают конфликты с близкими из-за времени, проведенного в игре?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q8" value="4"> Постоянно</label>
+                    <label class="option"><input type="radio" name="q8" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q8" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q8" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 9 из 10</div>
+                <p>Как часто вы чувствуете, что игра — это ваш основной способ справляться со стрессом?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q9" value="4"> Всегда</label>
+                    <label class="option"><input type="radio" name="q9" value="3"> Часто</label>
+                    <label class="option"><input type="radio" name="q9" value="2"> Иногда</label>
+                    <label class="option"><input type="radio" name="q9" value="1"> Редко или никогда</label>
+                </div>
+            </div>
+            
+            <div class="test-question">
+                <div class="test-question-number">Вопрос 10 из 10</div>
+                <p>Как часто вы пытались сократить время игры, но безуспешно?</p>
+                <div class="test-options">
+                    <label class="option"><input type="radio" name="q10" value="4"> Много раз</label>
+                    <label class="option"><input type="radio" name="q10" value="3"> Несколько раз</label>
+                    <label class="option"><input type="radio" name="q10" value="2"> Один-два раза</label>
+                    <label class="option"><input type="radio" name="q10" value="1"> Никогда не пытался</label>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="calculateTest(3)">Получить результат</button>
+            
+            <div class="result-container" id="result3">
+                <h3 class="result-title">Ваш результат: <span id="resultText3"></span></h3>
+                <div class="result-score">Оценка: <span id="resultScore3"></span>/40</div>
+                
+                <div class="result-meter">
+                    <div class="meter-fill" id="meter3"></div>
+                </div>
+                <div class="meter-labels">
+                    <span>Низкий риск</span>
+                    <span>Умеренный риск</span>
+                    <span>Высокий риск</span>
+                </div>
+                
+                <div class="result-details">
+                    <h4>Интерпретация результатов:</h4>
+                    <p id="resultDesc3"></p>
+                    <p id="resultAdvice3"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p class="footer-warning pulse">⚠️ Этот сайт может вызывать дискомфорт у людей с цифровой зависимостью</p>
+        <p>Если вы обнаружили у себя признаки зависимости, обратитесь к специалисту — психологу или психотерапевту.</p>
+        <p>Исследовательский проект © 2023 | Все данные анонимны</p>
+    </footer>
+
+    <script>
+        // Matrix rain effect
+        const canvas = document.createElement('canvas');
+        canvas.id = 'matrixCanvas';
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.zIndex = '-1';
+        canvas.style.opacity = '0.15';
+        document.getElementById('matrixRain').appendChild(canvas);
+        
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+        
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const rainDrops = [];
+        
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+        
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+                
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        };
+        
+        setInterval(draw, 30);
+        
+        // Test calculation
+        function calculateTest(testNum) {
+            const questions = document.querySelectorAll(`#test${testNum} .test-question`);
+            let totalScore = 0;
+            let answered = 0;
+            
+            questions.forEach((q, i) => {
+                const selected = q.querySelector('input[type="radio"]:checked');
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                    answered++;
+                }
+            });
+            
+            if (answered < questions.length) {
+                alert('Пожалуйста, ответьте на все вопросы');
+                return;
+            }
+            
+            const percentage = Math.min(100, Math.round((totalScore / (questions.length * 4)) * 100));
+            const resultContainer = document.getElementById(`result${testNum}`);
+            const resultText = document.getElementById(`resultText${testNum}`);
+            const resultScore = document.getElementById(`resultScore${testNum}`);
+            const resultDesc = document.getElementById(`resultDesc${testNum}`);
+            const resultAdvice = document.getElementById(`resultAdvice${testNum}`);
+            const meter = document.getElementById(`meter${testNum}`);
+            
+            meter.style.width = `${percentage}%`;
+            resultScore.textContent = totalScore;
+            
+            // Different test descriptions
+            let testName = "";
+            if (testNum == 1) testName = "общей интернет-зависимости";
+            else if (testNum == 2) testName = "зависимости от социальных сетей";
+            else if (testNum == 3) testName = "игровой зависимости";
+            
+            if (percentage < 30) {
+                resultText.textContent = 'Низкий риск';
+                resultText.style.color = '#0f0';
+                resultDesc.textContent = `У вас нет или очень мало признаков ${testName}. Ваше использование сбалансировано и контролируемо.`;
+                resultAdvice.textContent = 'Совет: Продолжайте поддерживать здоровый баланс между онлайн и оффлайн активностями.';
+            } else if (percentage < 70) {
+                resultText.textContent = 'Умеренный риск';
+                resultText.style.color = '#ff0';
+                resultDesc.textContent = `Вы демонстрируете некоторые признаки ${testName}. Ваше использование иногда выходит из-под контроля и может негативно влиять на различные сферы жизни.`;
+                resultAdvice.textContent = 'Совет: Попробуйте установить четкие границы использования (время, места), практиковать цифровые детоксы, найти оффлайн альтернативы.';
+            } else {
+                resultText.textContent = 'Высокий риск';
+                resultText.style.color = '#f00';
+                resultDesc.textContent = `У вас выраженные признаки ${testName}. Вероятно, это уже негативно влияет на вашу повседневную жизнь, отношения и продуктивность.`;
+                resultAdvice.textContent = 'Рекомендация: Рассмотрите возможность обращения к специалисту (психологу, психотерапевту). Начните с малых шагов — установите таймеры использования, удалите самые проблемные приложения, найдите поддержку в реальной жизни.';
+            }
+            
+            resultContainer.style.display = 'block';
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+            
+            // Save results to localStorage
+            localStorage.setItem(`test${testNum}Score`, totalScore);
+            localStorage.setItem(`test${testNum}Date`, new Date().toLocaleDateString());
+        }
+        
+        // Typing effect
+        const elements = document.querySelectorAll('.typing-effect');
+        elements.forEach(el => {
+            const text = el.textContent;
+            el.textContent = '';
+            
+            let i = 0;
+            const typing = setInterval(() => {
+                if (i < text.length) {
+                    el.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typing);
+                    el.style.borderRight = 'none';
+                }
+            }, 100);
+        });
+        
+        // Responsive adjustments
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Load previous test results if available
+        document.addEventListener('DOMContentLoaded', () => {
+            [1, 2, 3].forEach(testNum => {
+                const savedScore = localStorage.getItem(`test${testNum}Score`);
+                const savedDate = localStorage.getItem(`test${testNum}Date`);
+                
+                if (savedScore) {
+                    const resultScore = document.getElementById(`resultScore${testNum}`);
+                    if (resultScore) {
+                        resultScore.textContent = `${savedScore}/40 (${savedDate})`;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
